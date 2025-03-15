@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
 import sys
+import re
 
-# Ensure a file path is provided
-if len(sys.argv) != 2:
-    print("Usage: python3 mapper.py <input_file>", file=sys.stderr)
-    sys.exit(1)
+# Precompiled regex for efficient tokenization
+WORD_REGEX = re.compile(r'\b[a-zA-Z]+\b')
 
-input_file = sys.argv[1]
+def process_line(line):
+    """
+    Tokenizes a line into words, converts to lowercase, and prints word count pairs.
+    """
+    words = WORD_REGEX.findall(line)  # Extract only valid words
+    for word in words:
+        print(f"{word.lower()}\t1")  # Output: word 1
 
-try:
-    with open(input_file, "r", encoding="utf-8") as f:
-        for line in f:
-            words = line.strip().split()
-            for word in words:
-                print(f"{word}\t1")  # Output: word 1
-except FileNotFoundError:
-    print(f"Error: File {input_file} not found", file=sys.stderr)
-    sys.exit(1)
-except Exception as e:
-    print(f"Error: {e}", file=sys.stderr)
-    sys.exit(1)
+# Process each line from standard input (stdin)
+for line in sys.stdin:
+    process_line(line)
 
