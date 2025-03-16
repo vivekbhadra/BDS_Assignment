@@ -7,7 +7,7 @@ LOCAL_INPUT_FILE="shakespeare.txt"
 
 # Ensure Hadoop services are running
 echo "====== Starting Hadoop Services ======"
-sudo systemctl start hadoop.services 2>/dev/null || echo "Skipping systemctl (not applicable). Starting manually..."
+sudo systemctl start hadoop.service 2>/dev/null || echo "Skipping systemctl (not applicable). Starting manually..."
 start-dfs.sh
 start-yarn.sh
 
